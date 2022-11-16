@@ -1,0 +1,16 @@
+.profile {
+    display: flex;
+}
+
+.profile-pic {
+    width: 25%;
+    border-radius: 10px;
+}
+
+.profile-info {
+    margin-left: 20px;
+}
+
+.profile-progress {
+    margin: 10px;
+}
