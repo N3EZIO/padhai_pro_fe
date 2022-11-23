@@ -6,27 +6,20 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import CardModal from "./CardModal";
 import Login from "./Login";
-// import { Data } from '../../containers/Data/Data'
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Card = () => {
-  // const mapQ = {
-  //   p: 131,
-  //   c: 148,
-  //   m: 51,
-  // };
+
   const [isFlipped, setIsFlipped] = useState(false);
   const [selectedOptionId, setSelectedOptionId] = useState(0);
   const [next_qid, setNextqid] = useState(0);
   const subjArr = ["p", "c", "m"];
   const [subj, setSubj] = useState("c");
-  //
+
   const [qid, setQid] = useState(Math.floor(Math.random() * (50 - 1 + 1)) + 1);
   const [Data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   console.log(subj, qid);
-  // const baseUrl = process.env.REACT_APP_BASE_URL;
-  // const baseUrl = "http://localhost:8000";
   const baseUrl = "https://wyc8ch.deta.dev/";
   const {
     loginWithPopup,
@@ -36,7 +29,6 @@ const Card = () => {
     isAuthenticated,
     getAccessTokenSilently,
   } = useAuth0();
-  // console.log('hello');
   const header = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -44,19 +36,15 @@ const Card = () => {
 
   const fetchData = async (q_id, subject) => {
     const subj = subjArr[Math.floor(Math.random() * subjArr.length)];
-    // console.log('hell1')
 
     try {
       const { data } = await axios.get(
-        // "http://localhost:8000/question/" + subject + "/" + q_id,
-        // "https://wyc8ch.deta.dev/question/" + subject + "/" + q_id,
-        "/api/question/" + subject + "/" + q_id,
+       process.env.REACT_APP_BACKEND_URL + "/api/question/" + subject + "/" + q_id,
 
         {
           headers: header,
         }
       );
-      // console.log(res?.data);
       setData(data);
       console.log(Data);
     } catch (err) {
@@ -73,13 +61,11 @@ const Card = () => {
     setSelectedOptionId(Number(e.target.value));
   };
 
-  // To flip the card
   const handleCardFlip = async (subjectNum) => {
     setLoading(false);
     setIsFlipped(!isFlipped);
   };
 
-  // To reset the options after each question
   const resetOptions = (subjectNum) => {
     setSelectedOptionId(0);
   };
@@ -90,9 +76,7 @@ const Card = () => {
 
     try {
       const resp = await axios.post(
-        //  "http://localhost:8000/" + "question/" + subj + "/" + qid,
-        // "https://wyc8ch.deta.dev" + "question/" + subj + "/" + qid,
-         "/api/question/" + subj + "/" + qid,
+        process.env.REACT_APP_BACKEND_URL + "/api/question/" + subj + "/" + qid,
         {
           option: selectedOptionId,
         },
