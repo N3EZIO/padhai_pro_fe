@@ -22,7 +22,12 @@ const NavbarHome = () => {
     useAuth0();
 
   return (
-    <>
+    <Auth0Provider
+    domain="padhai.eu.auth0.com"
+        clientId="eGstz0z2YVoV4Mw7nmsyHMgGWEcG8DO5"
+        redirectUri={window.location.origin}
+        audience="a unique identifier"
+        scope="openid profile email">
       <nav className="main-nav">
         <div className="logo">
           <h2>
@@ -64,7 +69,7 @@ const NavbarHome = () => {
           </div>
         </div>
       </nav>
-    </>
+    </Auth0Provider>
     // <Navbar bg="light" expand="lg">
     //   <Container>
     //     <Navbar.Brand href="/">Padh.ai</Navbar.Brand>
