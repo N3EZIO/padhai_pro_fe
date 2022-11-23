@@ -19,7 +19,7 @@ const Card = () => {
   const [selectedOptionId, setSelectedOptionId] = useState(0);
   const [next_qid, setNextqid] = useState(0);
   const subjArr = ["p", "c", "m"];
-  const [subj, setSubj] = useState("m");
+  const [subj, setSubj] = useState("c");
   //
   const [qid, setQid] = useState(Math.floor(Math.random() * (50 - 1 + 1)) + 1);
   const [Data, setData] = useState(null);
