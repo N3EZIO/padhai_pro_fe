@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useRef } from "react";
 import NavbarHome from "../Navbar";
-// import "./contact.css";
+import emailjs from "@emailjs/browser";
 
-function Contact() {
+export const Contact = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_w4p1sis",
+        "template_ouiz4rf",
+        form.current,
+        "UY_lTkSuCNYJO560L"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <>
       <NavbarHome />
@@ -17,6 +38,8 @@ function Contact() {
         }}
       >
         <form
+          ref={form}
+          onSubmit={sendEmail}
           style={{
             background: "#fff",
             display: "flex",
@@ -40,6 +63,7 @@ function Contact() {
             type="text"
             id="name"
             placeholder="Your Name"
+            name="user_name"
             required
             style={{
               border: "0",
@@ -53,6 +77,7 @@ function Contact() {
             type="email"
             id="email"
             placeholder="Email Id"
+            name="user_email"
             required
             style={{
               border: "0",
@@ -66,6 +91,7 @@ function Contact() {
             type="text"
             id="phone"
             placeholder="Phone no."
+            name="user_phone"
             required
             style={{
               border: "0",
@@ -79,6 +105,7 @@ function Contact() {
             id="message"
             rows={4}
             placeholder="Your Message"
+            name="message"
             style={{
               border: "0",
               margin: "10px 0",
@@ -108,6 +135,6 @@ function Contact() {
       </div>
     </>
   );
-}
+};
 
 export default Contact;
