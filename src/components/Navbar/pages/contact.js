@@ -17,12 +17,14 @@ export const Contact = () => {
       )
       .then(
         (result) => {
+          window.alert("Your response have been recorded");
           console.log(result.text);
         },
         (error) => {
           console.log(error.text);
         }
       );
+    e.target.reset();
   };
   return (
     <>
@@ -118,7 +120,7 @@ export const Contact = () => {
             type="Submit"
             style={{
               padding: "15px",
-              background: "#73abe8",
+              background: "black",
               color: "#fff",
               "font-size": "18px",
               border: "0",

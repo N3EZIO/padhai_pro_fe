@@ -25,10 +25,12 @@ const NavbarHome = () => {
     <>
       <nav className="main-nav">
         <div className="logo">
-          <h2>
-            <span>P</span>adh.
-            <span>AI</span>
-          </h2>
+          <a href="/">
+            <h2>
+              <span>P</span>adh.
+              <span>AI</span>
+            </h2>
+          </a>
         </div>
         <div className={showOptions ? "mobile-menu-link" : "menu-link"}>
           <ul>
