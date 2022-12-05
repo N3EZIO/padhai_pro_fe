@@ -17,16 +17,12 @@ function About() {
                 <h1 className="main-heading">Our Company</h1>
                 <div className="underline mx-auto"></div>
                 <p style={{ fontSize: "1.5rem" }}>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum
+                  Overwhelmed with multiple DPP sheets, modules, and textbooks
+                  and still feel topics aren't covered fully? Don't know what's
+                  your strength and weakness and what to focus on more? We've
+                  built a smart test series that learns from your mistakes and
+                  recommends similar questions so that your practice improves
+                  over time.
                 </p>
               </div>
             </div>
