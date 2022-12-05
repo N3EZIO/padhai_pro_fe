@@ -73,12 +73,13 @@ const Card = () => {
   // Or more precisely, handleSubmit
   const handleClick = async (subjectNum) => {
     // Flip the card to show the solution after submitting
-
+    const jwtToken = await getAccessTokenSilently();
     try {
       const resp = await axios.post(
         process.env.REACT_APP_BACKEND_URL + "/api/question/" + subj + "/" + qid,
         {
           option: selectedOptionId,
+          jwt: jwtToken,
         },
         {
           headers: header,

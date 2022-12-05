@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUserAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import "./navbar.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -24,18 +25,20 @@ const NavbarHome = () => {
     <>
       <nav className="main-nav">
         <div className="logo">
-          <h2>
-            <span>P</span>adh.
-            <span>AI</span>
-          </h2>
+          <a href="/">
+            <h2>
+              <span>P</span>adh.
+              <span>AI</span>
+            </h2>
+          </a>
         </div>
         <div className={showOptions ? "mobile-menu-link" : "menu-link"}>
           <ul>
             <li>
-              <a href="/">About</a>
+              <a href="/about">About</a>
             </li>
             <li>
-              <a href="/">Contact Us</a>
+              <a href="/contact">Contact Us</a>
             </li>
 
             <li>
