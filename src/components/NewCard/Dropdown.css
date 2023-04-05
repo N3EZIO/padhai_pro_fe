@@ -1,0 +1,19 @@
+.dropdown{
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.my-label{
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin-right: 0.75rem;
+}
+
+.selected{
+    font-size: 2.2rem;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: bold;
+    
+}

@@ -6,21 +6,25 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import CardModal from "./CardModal";
 import Login from "./Login";
+import DropdownMenu from "./Dropdown";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Card = () => {
-
   const [isFlipped, setIsFlipped] = useState(false);
   const [selectedOptionId, setSelectedOptionId] = useState(0);
   const [next_qid, setNextqid] = useState(0);
   const subjArr = ["p", "c", "m"];
   const [subj, setSubj] = useState("c");
 
-  const [qid, setQid] = useState(Math.floor(Math.random() * (50 - 1 + 1)) + 1);
+  const [qid, setQid] = useState(1);
   const [Data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-  console.log(subj, qid);
+
   const baseUrl = "https://wyc8ch.deta.dev/";
+  const [option, setOption] = useState(null);
+  const [suboption, setSuboption] = useState(null);
+
   const {
     loginWithPopup,
     loginWithRedirect,
@@ -34,28 +38,79 @@ const Card = () => {
     "Access-Control-Allow-Origin": "*",
   };
 
-  const fetchData = async (q_id, subject) => {
-    const subj = subjArr[Math.floor(Math.random() * subjArr.length)];
+  const sendPostReqOnBeforeUnload = async () => {
+    const jwtToken = await getAccessTokenSilently();
 
     try {
-      const { data } = await axios.get(
-       process.env.REACT_APP_BACKEND_URL + "/api/question/" + subject + "/" + q_id,
-
+      // console.log("Before Unload", option, qid);
+      const resp = await axios.post(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/update_user/" +
+          option +
+          "/" +
+          qid,
         {
-          headers: header,
+          jwt: jwtToken,
         }
       );
-      setData(data);
-      console.log(Data);
     } catch (err) {
-      alert("Internal Server Error");
+      alert("Internal Server error 01");
       console.log(err);
     }
   };
 
+  const fetchData = async () => {
+    const jwtToken = await getAccessTokenSilently();
+
+    if (option && suboption) {
+      try {
+        console.log(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api/get_chapt/" +
+            option +
+            "/" +
+            suboption +
+            "/"
+        );
+        const resp = await axios.post(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api/get_chapt/" +
+            option +
+            "/" +
+            suboption +
+            "/",
+
+          {
+            jwt: jwtToken,
+          },
+          {
+            headers: header,
+          }
+        );
+
+        // .then((resp) => {
+        //   setData(resp.data);
+        //   console.log(resp);
+        // });
+        setData(resp.data);
+        setQid(resp.data.q_id);
+        console.log(resp);
+        await ((resp) => {
+          setData(resp.data);
+          // setQid(resp.data.q_id);
+          // console.log(resp);
+        });
+      } catch (err) {
+        alert("Internal Server Error");
+        console.log(err);
+      }
+    }
+  };
+
   useEffect(() => {
-    fetchData(qid, subj);
-  }, [qid]);
+    // console.log("Funciton called again");
+    fetchData();
+  }, [option, suboption]);
 
   const handleChange = (e, subjectNum) => {
     setSelectedOptionId(Number(e.target.value));
@@ -69,14 +124,41 @@ const Card = () => {
   const resetOptions = (subjectNum) => {
     setSelectedOptionId(0);
   };
+  const handleDropdownSelect = (option, suboption) => {
+    setOption(option);
+    setSuboption(suboption);
+  };
+
+  window.onbeforeunload = sendPostReqOnBeforeUnload;
+
+  // POST endpoint: /api/get_chapt_ques/:subject/:chapter/:id
 
   // Or more precisely, handleSubmit
   const handleClick = async (subjectNum) => {
     // Flip the card to show the solution after submitting
+
     const jwtToken = await getAccessTokenSilently();
+
     try {
+      console.log(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/get_chapt_ques/" +
+          option +
+          "/" +
+          suboption +
+          "/" +
+          qid
+      );
+
       const resp = await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/api/question/" + subj + "/" + qid,
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/get_chapt_ques/" +
+          option +
+          "/" +
+          suboption +
+          "/" +
+          qid,
+
         {
           option: selectedOptionId,
           jwt: jwtToken,
@@ -85,12 +167,15 @@ const Card = () => {
           headers: header,
         }
       );
-      console.log(resp);
+      // console.log(resp);
       await handleCardFlip(subjectNum);
-      setSubj(resp.data.subject);
-      setQid(resp.data.next_question + 1);
-      console.log(qid);
-      console.log(subj);
+      // setSubj(resp.data.subject);
+      setData(resp.data);
+      setQid(resp.data.q_id);
+      // console.log("new qid " + resp.data.q_id);
+      // console.log("used qid " + qid);
+      console.log(resp);
+
       setLoading(!loading);
 
       // setNextqid(qid);
@@ -107,30 +192,37 @@ const Card = () => {
   };
 
   return (
-    Data && (
-      <Container className="card-container">
-        <Row>
-          <Col lg={12} md={12} sm={12} className="mt-4 ">
-            {isAuthenticated ? (
-              <CardModal
-                data={Data}
-                isFlipped={isFlipped}
-                handleClick={() => handleClick(1)}
-                handleCardFlip={() => handleCardFlip(1)}
-                selectedOptionId={selectedOptionId}
-                handleChange={(e) => handleChange(e)}
-                loading={loading}
-              />
-            ) : (
-              <>
-                {/* <h2> please Login</h2> */}
-                <Login />
-              </>
-            )}
-          </Col>
-        </Row>
-      </Container>
-    )
+    <div>
+      <DropdownMenu onSelect={handleDropdownSelect} />
+      {Data && (
+        <Container className="card-container">
+          {/* <DropdownMenu
+          onSelect={handleDropdownSelect}
+          // onChange={handleDropdownChange}
+        /> */}
+          <Row>
+            <Col lg={12} md={12} sm={12} className="mt-4 ">
+              {isAuthenticated ? (
+                <CardModal
+                  data={Data}
+                  isFlipped={isFlipped}
+                  handleClick={() => handleClick(1)}
+                  handleCardFlip={() => handleCardFlip(1)}
+                  selectedOptionId={selectedOptionId}
+                  handleChange={(e) => handleChange(e)}
+                  loading={loading}
+                />
+              ) : (
+                <>
+                  {/* <h2> please Login</h2> */}
+                  <Login />
+                </>
+              )}
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </div>
   );
 };
 
