@@ -46,7 +46,7 @@ const Card = () => {
       const resp = await axios.post(
         process.env.REACT_APP_BACKEND_URL +
           "/api/update_user/" +
-          option +
+          suboption +
           "/" +
           qid,
         {
@@ -129,7 +129,7 @@ const Card = () => {
     setSuboption(suboption);
   };
 
-  window.onbeforeunload = sendPostReqOnBeforeUnload;
+  // window.onbeforeunload = sendPostReqOnBeforeUnload;
 
   // POST endpoint: /api/get_chapt_ques/:subject/:chapter/:id
 
@@ -172,6 +172,8 @@ const Card = () => {
       // setSubj(resp.data.subject);
       setData(resp.data);
       setQid(resp.data.q_id);
+      window.onbeforeunload = sendPostReqOnBeforeUnload;
+
       // console.log("new qid " + resp.data.q_id);
       // console.log("used qid " + qid);
       console.log(resp);
