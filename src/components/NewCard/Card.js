@@ -114,7 +114,7 @@ const Card = () => {
 
   useEffect(() => {
     sendPostReqOnBeforeUnload();
-  }, [suboption]);
+  }, [option, suboption]);
 
   const handleChange = (e, subjectNum) => {
     setSelectedOptionId(Number(e.target.value));
