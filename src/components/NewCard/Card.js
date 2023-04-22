@@ -54,7 +54,7 @@ const Card = () => {
         }
       );
     } catch (err) {
-      alert("Internal Server error 01");
+      // alert("Internal Server error 01");
       console.log(err);
     }
   };
@@ -64,14 +64,14 @@ const Card = () => {
 
     if (option && suboption) {
       try {
-        console.log(
-          process.env.REACT_APP_BACKEND_URL +
-            "/api/get_chapt/" +
-            option +
-            "/" +
-            suboption +
-            "/"
-        );
+        // console.log(
+        //   process.env.REACT_APP_BACKEND_URL +
+        //     "/api/get_chapt/" +
+        //     option +
+        //     "/" +
+        //     suboption +
+        //     "/"
+        // );
         const resp = await axios.post(
           process.env.REACT_APP_BACKEND_URL +
             "/api/get_chapt/" +
@@ -94,7 +94,7 @@ const Card = () => {
         // });
         setData(resp.data);
         setQid(resp.data.q_id);
-        console.log(resp);
+        // console.log(resp);
         await ((resp) => {
           setData(resp.data);
           // setQid(resp.data.q_id);
@@ -111,6 +111,10 @@ const Card = () => {
     // console.log("Funciton called again");
     fetchData();
   }, [option, suboption]);
+
+  useEffect(() => {
+    sendPostReqOnBeforeUnload();
+  }, [suboption]);
 
   const handleChange = (e, subjectNum) => {
     setSelectedOptionId(Number(e.target.value));
@@ -140,15 +144,15 @@ const Card = () => {
     const jwtToken = await getAccessTokenSilently();
 
     try {
-      console.log(
-        process.env.REACT_APP_BACKEND_URL +
-          "/api/get_chapt_ques/" +
-          option +
-          "/" +
-          suboption +
-          "/" +
-          qid
-      );
+      // console.log(
+      //   process.env.REACT_APP_BACKEND_URL +
+      //     "/api/get_chapt_ques/" +
+      //     option +
+      //     "/" +
+      //     suboption +
+      //     "/" +
+      //     qid
+      // );
 
       const resp = await axios.post(
         process.env.REACT_APP_BACKEND_URL +
@@ -176,7 +180,7 @@ const Card = () => {
 
       // console.log("new qid " + resp.data.q_id);
       // console.log("used qid " + qid);
-      console.log(resp);
+      // console.log(resp);
 
       setLoading(!loading);
 
@@ -194,36 +198,66 @@ const Card = () => {
   };
 
   return (
+    // <div>
+    //   <DropdownMenu onSelect={handleDropdownSelect} />
+    //   {Data && (
+    //     <Container className="card-container">
+    //       <Row>
+    //         <Col lg={12} md={12} sm={12} className="mt-4 ">
+    //           {isAuthenticated ? (
+    //             <>
+    //               <CardModal
+    //                 data={Data}
+    //                 isFlipped={isFlipped}
+    //                 handleClick={() => handleClick(1)}
+    //                 handleCardFlip={() => handleCardFlip(1)}
+    //                 selectedOptionId={selectedOptionId}
+    //                 handleChange={(e) => handleChange(e)}
+    //                 loading={loading}
+    //               />
+    //             </>
+    //           ) : (
+    //             <>
+    //               {/* <h2> please Login</h2> */}
+    //               <Login />
+    //             </>
+    //           )}
+    //         </Col>
+    //       </Row>
+    //     </Container>
+    //   )}
+    // </div>
+
+    // DIVISION
+
     <div>
-      <DropdownMenu onSelect={handleDropdownSelect} />
-      {Data && (
-        <Container className="card-container">
-          {/* <DropdownMenu
-          onSelect={handleDropdownSelect}
-          // onChange={handleDropdownChange}
-        /> */}
-          <Row>
-            <Col lg={12} md={12} sm={12} className="mt-4 ">
-              {isAuthenticated ? (
-                <CardModal
-                  data={Data}
-                  isFlipped={isFlipped}
-                  handleClick={() => handleClick(1)}
-                  handleCardFlip={() => handleCardFlip(1)}
-                  selectedOptionId={selectedOptionId}
-                  handleChange={(e) => handleChange(e)}
-                  loading={loading}
-                />
-              ) : (
-                <>
-                  {/* <h2> please Login</h2> */}
-                  <Login />
-                </>
-              )}
-            </Col>
-          </Row>
-        </Container>
-      )}
+      <Container className="card-container">
+        <Row>
+          <Col lg={12} md={12} sm={12} className="mt-4 ">
+            {isAuthenticated ? (
+              <>
+                <DropdownMenu onSelect={handleDropdownSelect} />
+                {Data && (
+                  <>
+                    {/* <DropdownMenu onSelect={handleDropdownSelect} /> */}
+                    <CardModal
+                      data={Data}
+                      isFlipped={isFlipped}
+                      handleClick={() => handleClick(1)}
+                      handleCardFlip={() => handleCardFlip(1)}
+                      selectedOptionId={selectedOptionId}
+                      handleChange={(e) => handleChange(e)}
+                      loading={loading}
+                    />
+                  </>
+                )}
+              </>
+            ) : (
+              <Login />
+            )}
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
