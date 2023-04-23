@@ -41,21 +41,23 @@ const Card = () => {
   const sendPostReqOnBeforeUnload = async () => {
     const jwtToken = await getAccessTokenSilently();
 
-    try {
-      // console.log("Before Unload", option, qid);
-      const resp = await axios.post(
-        process.env.REACT_APP_BACKEND_URL +
-          "/api/update_user/" +
-          suboption +
-          "/" +
-          qid,
-        {
-          jwt: jwtToken,
-        }
-      );
-    } catch (err) {
-      // alert("Internal Server error 01");
-      console.log(err);
+    if (suboption) {
+      try {
+        console.log("Before Unload", suboption, qid);
+        const resp = await axios.post(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api/update_user/" +
+            suboption +
+            "/" +
+            qid,
+          {
+            jwt: jwtToken,
+          }
+        );
+      } catch (err) {
+        // alert("Internal Server error 01");
+        console.log(err);
+      }
     }
   };
 
@@ -112,9 +114,12 @@ const Card = () => {
     fetchData();
   }, [option, suboption]);
 
-  useEffect(() => {
-    sendPostReqOnBeforeUnload();
-  }, [suboption]);
+
+  // useEffect(() => {
+  //   // setPrevsubopt(suboption);
+  //   sendPostReqOnBeforeUnload();
+  // }, [suboption]);
+
 
   const handleChange = (e, subjectNum) => {
     setSelectedOptionId(Number(e.target.value));
@@ -128,9 +133,10 @@ const Card = () => {
   const resetOptions = (subjectNum) => {
     setSelectedOptionId(0);
   };
-  const handleDropdownSelect = (option, suboption) => {
+  const handleDropdownSelect = async (option, suboption) => {
     setOption(option);
     setSuboption(suboption);
+    await sendPostReqOnBeforeUnload();
   };
 
   // window.onbeforeunload = sendPostReqOnBeforeUnload;
