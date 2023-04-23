@@ -114,10 +114,12 @@ const Card = () => {
     fetchData();
   }, [option, suboption]);
 
+
   // useEffect(() => {
   //   // setPrevsubopt(suboption);
   //   sendPostReqOnBeforeUnload();
   // }, [suboption]);
+
 
   const handleChange = (e, subjectNum) => {
     setSelectedOptionId(Number(e.target.value));
