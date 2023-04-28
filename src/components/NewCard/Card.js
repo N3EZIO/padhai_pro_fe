@@ -149,7 +149,7 @@ const Card = () => {
   useEffect(() => {
     // console.log("Funciton called again");
     fetchData();
-  }, [option, suboption]);
+  }, [option, suboption, randqid]);
 
   // useEffect(() => {
   //   // setPrevsubopt(suboption);
