@@ -149,7 +149,12 @@ const Card = () => {
   useEffect(() => {
     // console.log("Funciton called again");
     fetchData();
-  }, [option, suboption, randqid]);
+  }, [option, suboption]);
+
+  // useEffect(() => {
+  //   // setPrevsubopt(suboption);
+  //   sendPostReqOnBeforeUnload();
+  // }, [suboption]);
 
   const handleChange = (e, subjectNum) => {
     setSelectedOptionId(Number(e.target.value));
