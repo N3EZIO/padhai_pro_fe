@@ -66,7 +66,7 @@ const Card = () => {
 
   const fetchData = async () => {
     const jwtToken = await getAccessTokenSilently();
-    const subj = subjArr[Math.floor(Math.random() * subjArr.length)];
+    // const subj = subjArr[Math.floor(Math.random() * subjArr.length)];
 
     if (option && suboption) {
       try {
@@ -92,6 +92,7 @@ const Card = () => {
         // });
         setData(resp.data);
         setQid(resp.data.q_id);
+        // setSubj(resp.data.subject);
         // console.log(resp);
         await ((resp) => {
           setData(resp.data);
@@ -132,6 +133,7 @@ const Card = () => {
         );
         setData(resp.data);
         setRandqid(resp.data.q_id);
+        // setSubj("c");
 
         await ((resp) => {
           setData(resp.data);
@@ -246,7 +248,7 @@ const Card = () => {
         await handleCardFlip(subjectNum);
 
         // setData(resp.data);
-        // setSubj(resp.subject);
+        setSubj(resp.data.subject);
         setRandqid(resp.data.next_question);
         window.onbeforeunload = sendPostReqOnBeforeUnload;
         setLoading(!loading);

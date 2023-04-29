@@ -51,7 +51,7 @@ const Dropdown = ({ onSelect }) => {
         Options:
       </label>
       <select id="options" value={option} onChange={handleOptionChange}>
-        <option value="">Select an option</option>
+        <option value="">Full Syllabus</option>
         {options.map((opt) => (
           <option key={opt.label} value={opt.label}>
             {opt.label}

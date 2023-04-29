@@ -84,7 +84,7 @@ function About() {
                 <a href="https://www.linkedin.com/in/ayush-kumar-945817205/">
                   <h2>Ayush Kumar</h2>
                 </a>
-                <h3>Web Developer</h3>
+                <h3>Front-End Lead</h3>
                 <br></br>
                 <br></br>
               </div>
