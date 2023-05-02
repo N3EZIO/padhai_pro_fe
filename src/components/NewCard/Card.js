@@ -16,6 +16,9 @@ const Card = () => {
   const [next_qid, setNextqid] = useState(0);
   const subjArr = ["p", "c", "m"];
   const [subj, setSubj] = useState("c");
+  const [randqid, setRandqid] = useState(
+    Math.floor(Math.random() * (50 - 1 + 1)) + 1
+  );
 
   const [qid, setQid] = useState(1);
   const [Data, setData] = useState(null);
@@ -63,17 +66,10 @@ const Card = () => {
 
   const fetchData = async () => {
     const jwtToken = await getAccessTokenSilently();
+    // const subj = subjArr[Math.floor(Math.random() * subjArr.length)];
 
     if (option && suboption) {
       try {
-        // console.log(
-        //   process.env.REACT_APP_BACKEND_URL +
-        //     "/api/get_chapt/" +
-        //     option +
-        //     "/" +
-        //     suboption +
-        //     "/"
-        // );
         const resp = await axios.post(
           process.env.REACT_APP_BACKEND_URL +
             "/api/get_chapt/" +
@@ -96,6 +92,7 @@ const Card = () => {
         // });
         setData(resp.data);
         setQid(resp.data.q_id);
+        // setSubj(resp.data.subject);
         // console.log(resp);
         await ((resp) => {
           setData(resp.data);
@@ -106,20 +103,60 @@ const Card = () => {
         alert("Internal Server Error");
         console.log(err);
       }
+    } else if (!option && !suboption) {
+      try {
+        console.log(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api" +
+            "/question" +
+            "/" +
+            subj +
+            "/" +
+            randqid +
+            "/"
+        );
+        const resp = await axios.get(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api" +
+            "/question" +
+            "/" +
+            subj +
+            "/" +
+            randqid +
+            "/",
+          {
+            jwt: jwtToken,
+          },
+          {
+            headers: header,
+          }
+        );
+        setData(resp.data);
+        setRandqid(resp.data.q_id);
+        // setSubj("c");
+
+        await ((resp) => {
+          setData(resp.data);
+          // setQid(resp.data.q_id);
+          // console.log(resp);
+        });
+        // console.log(jwtToken);
+      } catch (err) {
+        alert("Int server error");
+        console.log(err);
+      }
     }
   };
 
   useEffect(() => {
     // console.log("Funciton called again");
     fetchData();
-  }, [option, suboption]);
-
+  }, [option, suboption, randqid]);
 
   // useEffect(() => {
   //   // setPrevsubopt(suboption);
   //   sendPostReqOnBeforeUnload();
   // }, [suboption]);
-
 
   const handleChange = (e, subjectNum) => {
     setSelectedOptionId(Number(e.target.value));
@@ -141,59 +178,86 @@ const Card = () => {
 
   // window.onbeforeunload = sendPostReqOnBeforeUnload;
 
-  // POST endpoint: /api/get_chapt_ques/:subject/:chapter/:id
-
   // Or more precisely, handleSubmit
   const handleClick = async (subjectNum) => {
     // Flip the card to show the solution after submitting
 
     const jwtToken = await getAccessTokenSilently();
+    if (option && suboption) {
+      try {
+        const resp = await axios.post(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api/get_chapt_ques/" +
+            option +
+            "/" +
+            suboption +
+            "/" +
+            qid,
 
-    try {
-      // console.log(
-      //   process.env.REACT_APP_BACKEND_URL +
-      //     "/api/get_chapt_ques/" +
-      //     option +
-      //     "/" +
-      //     suboption +
-      //     "/" +
-      //     qid
-      // );
+          {
+            option: selectedOptionId,
+            jwt: jwtToken,
+          },
+          {
+            headers: header,
+          }
+        );
+        // console.log(resp);
+        await handleCardFlip(subjectNum);
+        // setSubj(resp.data.subject);
+        setData(resp.data);
+        setQid(resp.data.q_id);
+        window.onbeforeunload = sendPostReqOnBeforeUnload;
 
-      const resp = await axios.post(
-        process.env.REACT_APP_BACKEND_URL +
-          "/api/get_chapt_ques/" +
-          option +
-          "/" +
-          suboption +
-          "/" +
-          qid,
+        setLoading(!loading);
 
-        {
-          option: selectedOptionId,
-          jwt: jwtToken,
-        },
-        {
-          headers: header,
-        }
-      );
-      // console.log(resp);
-      await handleCardFlip(subjectNum);
-      // setSubj(resp.data.subject);
-      setData(resp.data);
-      setQid(resp.data.q_id);
-      window.onbeforeunload = sendPostReqOnBeforeUnload;
+        // setNextqid(qid);
+        // window.location.reload(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (!option && !suboption) {
+      try {
+        console.log(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api" +
+            "/question" +
+            "/" +
+            subj +
+            "/" +
+            randqid +
+            "/"
+        );
+        const resp = await axios.post(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api" +
+            "/question" +
+            "/" +
+            subj +
+            "/" +
+            randqid +
+            "/",
+          {
+            option: selectedOptionId,
+            jwt: jwtToken,
+          },
+          {
+            headers: header,
+          }
+        );
+        await handleCardFlip(subjectNum);
 
-      // console.log("new qid " + resp.data.q_id);
-      // console.log("used qid " + qid);
-      // console.log(resp);
+        // setData(resp.data);
+        setSubj(resp.data.subject);
+        setRandqid(resp.data.next_question);
+        window.onbeforeunload = sendPostReqOnBeforeUnload;
+        setLoading(!loading);
 
-      setLoading(!loading);
-
-      // setNextqid(qid);
-      // window.location.reload(false);
-    } catch (error) {
-      console.log(error);
+        //
+      } catch (err) {
+        alert("Int serv err 2");
+        console.log(err);
+      }
     }
 
     // ***Jugaad*** - The answer/explanation to next question available after the card has flipped
