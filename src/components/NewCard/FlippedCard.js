@@ -42,7 +42,7 @@ const FlippedCard = ({
         {/* <div className='card-text'>Explanation :- <br />{data.greeting}</div> */}
       </div>
       <div className="card-footer">
-        <Stack gap={2}>
+        <Stack className="stack1" gap={2}>
           <Button className="w-100" variant="primary" onClick={handleCardFlip}>
             Back to Question
           </Button>

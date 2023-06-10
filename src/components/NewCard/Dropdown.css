@@ -2,13 +2,16 @@
     margin-top: 1rem;
     font-size: 1.5rem;
     text-align: center;
+    
 }
 
 .my-label{
     margin-bottom: 1rem;
-    font-size: 1.75rem;
-    font-weight: 500;
+    font-family: "Helvetica", sans-serif;
+    font-size: 2rem;
+    color: #333333;
     margin-right: 0.75rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .selected{
@@ -17,3 +20,54 @@
     font-weight: bold;
     
 }
+  
+  .dropdown select {
+    width: 100%;
+    padding: 10px; 
+    font-size: 16px;
+    color: #333333;
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+    border-radius: 5px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  .dropdown select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .dropdown::before {
+    /* content: '\25bc'; */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #333333;
+  }
+  
+  .dropdown select::-ms-expand {
+    display: none;
+  }
+  
+  /* Optional: Hover and Active States */
+  
+  .dropdown select:hover {
+    border-color: #007bff;
+  }
+  
+  .dropdown select:active {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+  }
+  
+  
+  
+  
+  
+  
+  

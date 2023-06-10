@@ -91,7 +91,7 @@ const CardModal = ({
                   {/* )} */}
                 </div>
                 <div className="card-footer">
-                  <Stack gap={2}>
+                  <Stack className="stack1" gap={2}>
                     {/* Disabled - to prevent submitting empty value */}
                     <Button
                       id="btn-flip"
