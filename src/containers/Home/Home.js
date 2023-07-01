@@ -4,7 +4,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import Card from "../../components/NewCard/Card";
 // check if user is authenticated else redirect to login
 import { Auth0Provider } from "@auth0/auth0-react";
-import {useAuth0} from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
+// import Profile from "../../components/Navbar/pages/profile";
 const Home = () => {
   const { isAuthenticated, isLoading } = useAuth0();
   return (
@@ -16,8 +17,9 @@ const Home = () => {
         audience="a unique identifier"
         scope="openid profile email"
       >
-        <Navbar />
+        {/* <Navbar /> */}
         <Card />
+        {/* <Profile /> */}
       </Auth0Provider>
     </>
   );

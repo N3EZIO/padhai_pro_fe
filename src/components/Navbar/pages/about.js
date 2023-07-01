@@ -8,7 +8,7 @@ import a3 from "./images/a3.jpg";
 function About() {
   return (
     <>
-      <NavbarHome />
+      {/* <NavbarHome /> */}
       <div>
         <section className="section">
           <div className="container">

@@ -86,18 +86,11 @@ const Card = () => {
           }
         );
 
-        // .then((resp) => {
-        //   setData(resp.data);
-        //   console.log(resp);
-        // });
         setData(resp.data);
         setQid(resp.data.q_id);
-        // setSubj(resp.data.subject);
-        // console.log(resp);
+
         await ((resp) => {
           setData(resp.data);
-          // setQid(resp.data.q_id);
-          // console.log(resp);
         });
       } catch (err) {
         alert("Internal Server Error");
@@ -302,6 +295,8 @@ const Card = () => {
 
     <div>
       <Container className="card-container">
+        {console.log("isauthenticated", isAuthenticated)}
+        {console.log(user)}
         <Row>
           <Col lg={12} md={12} sm={12} className="mt-4 ">
             {isAuthenticated ? (

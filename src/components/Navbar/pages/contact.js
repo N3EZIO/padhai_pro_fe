@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import NavbarHome from "../Navbar";
 // import emailjs from "@emailjs/browser";
-import emailjs from "../../../@emailjs/browser/es"
+import emailjs from "../../../@emailjs/browser/es";
 
 export const Contact = () => {
   const form = useRef();
@@ -29,7 +29,7 @@ export const Contact = () => {
   };
   return (
     <>
-      <NavbarHome />
+      {/* <NavbarHome /> */}
       <div
         className="container"
         style={{
