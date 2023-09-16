@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { loginWithRedirect, isAuthenticated, loginWithPopup, user } =
+  const { loginWithRedirect, isAuthenticated, loginWithPopup, user, setisA } =
     useAuth0();
   const navigate = useNavigate();
 
