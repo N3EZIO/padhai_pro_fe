@@ -1,6 +1,7 @@
+/* 
 .profile-card {
     background-color: #fff;
-    padding: 40px;
+    padding: 30px 40px;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: auto;
@@ -12,16 +13,21 @@
     transform: translate(-50%, -50%);
   }
   
+  .profile-card-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
   .profile-picture {
-    width: 200px;
-    height: 200px;
+    width: 50px;
+    height:50px;
     border-radius: 50%;
-    margin-bottom: 20px;
   }
   
   .profile-name {
     font-size: 24px;
-    margin-bottom: 20px;
   }
   
   .profile-stats p {
@@ -29,3 +35,87 @@
     margin: 10px 0;
   }
   
+ */
+
+
+.profile-details{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin: 10px  75px ;
+
+}
+
+.profile-picture{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-name{
+  font-size: 24 px;
+  text-transform: uppercase;
+}
+
+.styled-table{
+  margin: 10px 90px;
+  /* width: fit-content; */
+  min-width: 950px;
+  background-color: white;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table{
+  border-collapse: collapse;
+}
+
+.styled-table thead tr {
+  background-color: #14389c;
+  color: #ffffff;
+  text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #14389c;
+}
+
+.profile-stats{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  text-align: left;
+  color: #fff;
+  background-color: #14389c;
+  max-height: 140px;
+}
+
+.analysis{
+  display: flex;
+  justify-content: space-between;
+  margin-right:100px;
+}
+
+.details{
+  margin-top: 15px;
+  text-align: left;
+  padding-left: 85px;
+}

@@ -1,7 +1,7 @@
 {
   "name": "padh.ai_frontend",
   "version": "0.1.0",
-  "homepage": "../",
+  "homepage": "http://../",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -52,5 +52,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "A Simple Question / Answer site with AI optimization, hosted on Netlify (Frontend). Made with ❤ using React.js.",
+  "main": "rand.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
 }
