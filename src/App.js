@@ -10,10 +10,17 @@ import About from "./components/Navbar/pages/about";
 import Contact from "./components/Navbar/pages/contact";
 import Profile from "./components/Navbar/pages/profile";
 import NavbarHome from "./components/Navbar/Navbar";
-
+import { Auth0Provider } from "@auth0/auth0-react";
 const App = () => {
   return (
     <div>
+      <Auth0Provider
+        domain="padhai.eu.auth0.com"
+        clientId="eGstz0z2YVoV4Mw7nmsyHMgGWEcG8DO5"
+        redirectUri={window.location.origin}
+        audience="a unique identifier"
+        scope="openid profile email"
+      >
       <NavbarHome />
 
       <Routes>
@@ -31,6 +38,7 @@ const App = () => {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Auth0Provider>
     </div>
   );
 };
@@ -45,7 +53,7 @@ const App = () => {
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isAuthenticated, isLoading } = useAuth0();
-
+  console.log("isAuthenticated", isAuthenticated, "isLoading", isLoading)
   if (isLoading) {
     return <>...loading</>;
   }

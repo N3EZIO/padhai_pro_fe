@@ -10,17 +10,17 @@ const Home = () => {
   const { isAuthenticated, isLoading } = useAuth0();
   return (
     <>
-      <Auth0Provider
+      {/* <Auth0Provider
         domain="padhai.eu.auth0.com"
         clientId="eGstz0z2YVoV4Mw7nmsyHMgGWEcG8DO5"
         redirectUri={window.location.origin}
         audience="a unique identifier"
         scope="openid profile email"
-      >
+      > */}
         {/* <Navbar /> */}
         <Card />
         {/* <Profile /> */}
-      </Auth0Provider>
+      {/* </Auth0Provider> */}
     </>
   );
 };
