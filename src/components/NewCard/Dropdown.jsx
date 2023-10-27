@@ -17,6 +17,10 @@ const Dropdown = ({ onSelect }) => {
   };
 
   const options = [
+    // {
+    //   label: "Full Syllabus",
+    //   subOptions: [{ label: "All Chapters" }],
+    // },
     {
       label: "P",
       subOptions: [
@@ -48,20 +52,24 @@ const Dropdown = ({ onSelect }) => {
   return (
     <div className="dropdown">
       <label className="my-label" htmlFor="options">
-        Options:
+        Subject:
       </label>
-      <select id="options" value={option} onChange={handleOptionChange}>
-        <option value="">Full Syllabus</option>
-        {options.map((opt) => (
-          <option key={opt.label} value={opt.label}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
+      <div className="dropdown">
+        <select id="options" value={option} onChange={handleOptionChange}>
+          <option value="">Select Options</option>
+          <option value="">Full Syllabus</option>
+
+          {options.map((opt) => (
+            <option key={opt.label} value={opt.label}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
       {option && (
         <div>
           <label className="my-label" htmlFor="subOptions">
-            Suboptions:
+            Chapter:
           </label>
           <select
             id="subOptions"
@@ -80,9 +88,7 @@ const Dropdown = ({ onSelect }) => {
         </div>
       )}
       {option && subOption && (
-        <div className="selected">
-          {option} - {subOption}
-        </div>
+        <div className="selected">{/* {option} - {subOption} */}</div>
       )}
     </div>
   );

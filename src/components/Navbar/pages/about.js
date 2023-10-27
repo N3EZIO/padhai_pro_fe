@@ -4,11 +4,23 @@ import "./about.css";
 import a1 from "./images/a1.jpg";
 import a2 from "./images/a2.jpg";
 import a3 from "./images/a3.jpg";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function About() {
+
+  const {
+    loginWithPopup,
+    loginWithRedirect,
+    logout,
+    user,
+    isAuthenticated,
+    getAccessTokenSilently,
+  } = useAuth0();
+
+  console.log("isAuthenticated", isAuthenticated);
   return (
     <>
-      <NavbarHome />
+      {/* <NavbarHome /> */}
       <div>
         <section className="section">
           <div className="container">

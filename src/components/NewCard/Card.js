@@ -43,6 +43,8 @@ const Card = () => {
 
   const sendPostReqOnBeforeUnload = async () => {
     const jwtToken = await getAccessTokenSilently();
+    console.log("jwt_In_card= ", jwtToken);
+    const storedjwt = localStorage.setItem("mytoken", jwtToken);
 
     if (suboption) {
       try {
@@ -66,6 +68,8 @@ const Card = () => {
 
   const fetchData = async () => {
     const jwtToken = await getAccessTokenSilently();
+    const storedjwt = localStorage.setItem("mytoken", jwtToken);
+
     // const subj = subjArr[Math.floor(Math.random() * subjArr.length)];
 
     if (option && suboption) {
@@ -86,18 +90,11 @@ const Card = () => {
           }
         );
 
-        // .then((resp) => {
-        //   setData(resp.data);
-        //   console.log(resp);
-        // });
         setData(resp.data);
         setQid(resp.data.q_id);
-        // setSubj(resp.data.subject);
-        // console.log(resp);
+
         await ((resp) => {
           setData(resp.data);
-          // setQid(resp.data.q_id);
-          // console.log(resp);
         });
       } catch (err) {
         alert("Internal Server Error");
@@ -268,40 +265,10 @@ const Card = () => {
   };
 
   return (
-    // <div>
-    //   <DropdownMenu onSelect={handleDropdownSelect} />
-    //   {Data && (
-    //     <Container className="card-container">
-    //       <Row>
-    //         <Col lg={12} md={12} sm={12} className="mt-4 ">
-    //           {isAuthenticated ? (
-    //             <>
-    //               <CardModal
-    //                 data={Data}
-    //                 isFlipped={isFlipped}
-    //                 handleClick={() => handleClick(1)}
-    //                 handleCardFlip={() => handleCardFlip(1)}
-    //                 selectedOptionId={selectedOptionId}
-    //                 handleChange={(e) => handleChange(e)}
-    //                 loading={loading}
-    //               />
-    //             </>
-    //           ) : (
-    //             <>
-    //               {/* <h2> please Login</h2> */}
-    //               <Login />
-    //             </>
-    //           )}
-    //         </Col>
-    //       </Row>
-    //     </Container>
-    //   )}
-    // </div>
-
-    // DIVISION
-
     <div>
       <Container className="card-container">
+        {console.log("isauthenticated", isAuthenticated)}
+        {console.log(user)}
         <Row>
           <Col lg={12} md={12} sm={12} className="mt-4 ">
             {isAuthenticated ? (

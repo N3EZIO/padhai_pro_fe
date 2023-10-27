@@ -18,7 +18,7 @@
 } */
 
 body{
-    background: radial-gradient(#e5e5e5 #ffff #e5e5e5);
+    background: radial-gradient(#21e5c1 #48d6fe #5affc0);
     margin: 0;
 }
 
@@ -45,9 +45,10 @@ body{
 }
 
 .card {
-    margin-top: 8%;
-    border-radius: 25px;
+    margin-top: 2%;
+    border-radius: 10%;
     background-color: #fff !important;
+    
 }
 
 .card:hover{
@@ -56,7 +57,7 @@ body{
 }
 
 .card-body{
-    background-color: white; 
+    background-color: rgb(220, 243, 245); 
     font-size: 1.6rem ;
     font-weight: 500;
 }
@@ -73,12 +74,15 @@ body{
 
 .btn{
   border: 0px solid black ;
+  width: 30% !important;
+  border-radius: 40%;
   color: white ;
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;
-  
+  background-color: black;
 }
+
 
 
 .w-100{
@@ -102,12 +106,13 @@ body{
 
 
 .form-check :checked + label{
-    border: 10px solid rgb(244, 232, 2);
+    border: 10px solid white;
     padding: 0.5rem;
     border-radius: 15px 10px;
     width: 90%;
-    background-color: rgb(244, 232, 2);
-    box-shadow: 0px 0px 0 1px rgb(247, 247, 5)
+    /* background-color: rgb(244, 232, 2); */
+    background-color: white;
+    box-shadow: 0px 0px 0 1px rgb(9, 228, 240)
     
     
 }
@@ -117,12 +122,25 @@ body{
     text-align: center;
     font-weight: 800;
     font-size: 2.3rem;
-    border-radius: 100px !important;
+    border-radius: 0px !important;
 }
 
 .card-footer{
-    background-color: white;
-    border-radius: 100px !important;
+    background-color: rgb(220, 243, 245);
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    /* height: 10vh; */
+    
+    
+    /* border-radius: 100px !important; */
+}
+
+.stack1{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-comp {
