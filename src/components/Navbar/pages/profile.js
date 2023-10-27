@@ -4,15 +4,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import "./profile.css";
 
-
 const Profile = () => {
   const [data_, setData] = useState({
-    analytics: { SHM: { correct: 4, wrong: 0 },
-    Thermo :{correct:3 , wrong:2},
-    Parabola :{correct:3 , wrong:2},
-    vectors :{correct:3 , wrong:2},
-    Geometry :{correct:3 , wrong:2},
-  },
+    analytics: {
+      SHM: { correct: 0, wrong: 0 },
+      Thermo: { correct: 0, wrong: 0 },
+      Parabola: { correct: 0, wrong: 0 },
+      vectors: { correct: 0, wrong: 0 },
+      Geometry: { correct: 0, wrong: 0 },
+    },
   });
   const {
     loginWithPopup,
@@ -58,60 +58,24 @@ const Profile = () => {
 
   console.log("data: ", data_);
 
+  let sum_correct = 0;
+  let sum_wrong = 0;
+  for (const key in data_.analytics) {
+    if (data_.analytics.hasOwnProperty(key)) {
+      sum_correct += data_.analytics[key].correct;
+      sum_wrong += data_.analytics[key].wrong;
+    }
+  }
+
   return (
     <>
-      {/* <div className="profile-card">
-
-        <div className="profile-card-nav">
-          <div>
-            <img
-              src={user.picture}
-              alt="User Profile"
-              className="profile-picture"
-            />
-          </div>
-          <div>
-            <h2>{user.given_name}</h2>
-          </div>
-        </div>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Topic Name</th>
-                <th>Correct</th>
-                <th>Wrong</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(data_.analytics).map((topicName, index) => (
-                <tr key={index}>
-                  <td>{topicName}</td>
-                  <td>{data_.analytics[topicName].correct}</td>
-                  <td>{data_.analytics[topicName].wrong}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div> */}
-      {/* <div className="profile-stats">
-          <p>{data}</p>
-          <p>data</p>
-          <p>Attempted: 10</p>
-          <p>Incorrect: 10</p>
-      </div> */}
-      {/* {console.log("isauthenticated", isAuthenticated, user)} */}
-
-
-
       <div className="profile-details">
         <div className="profile-image">
-        <img
-              src={user.picture}
-              alt="User Profile"
-              className="profile-picture"
-            />
+          <img
+            src={user.picture}
+            alt="User Profile"
+            className="profile-picture"
+          />
         </div>
         <div className="profile-name">
           <h2>{user.given_name}</h2>
@@ -119,39 +83,37 @@ const Profile = () => {
       </div>
 
       <div className="analysis">
-
         <table className="styled-table">
-            <thead>
-              <tr>
-                <th>Topic Name</th>
-                <th>Total Attempted</th>
-                <th>Answered Correct</th>
-                <th>Answered Incorrect</th>
+          <thead>
+            <tr>
+              <th>Topic Name</th>
+              <th>Total Attempted</th>
+              <th>Answered Correct</th>
+              <th>Answered Incorrect</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(data_.analytics).map((topicName, index) => (
+              <tr key={index}>
+                <td>{topicName}</td>
+                <td>
+                  {data_.analytics[topicName].correct +
+                    data_.analytics[topicName].wrong}
+                </td>
+                <td>{data_.analytics[topicName].correct}</td>
+                <td>{data_.analytics[topicName].wrong}</td>
               </tr>
-            </thead>
-            <tbody>
-                {Object.keys(data_.analytics).map((topicName, index) => (
-                  <tr key={index}>
-                    <td>{topicName}</td>
-                    <td>{data_.analytics[topicName].correct+data_.analytics[topicName].wrong}</td>
-                    <td>{data_.analytics[topicName].correct}</td>
-                    <td>{data_.analytics[topicName].wrong}</td>
-                  </tr>
-                ))}
-            </tbody>
+            ))}
+          </tbody>
         </table>
-        
+
         <div className="profile-stats">
-            <h4>Your statistics :</h4>
-            <h5 className="details">Attempetd : 10</h5> 
-            <h5 className="details">Incorrect : 3</h5> 
-            <h5 className="details">Correct : 7</h5> 
+          <h4>Your statistics :</h4>
+          <h5 className="details">Attempetd : {sum_correct + sum_wrong}</h5>
+          <h5 className="details">Incorrect : {sum_wrong}</h5>
+          <h5 className="details">Correct : {sum_correct}</h5>
         </div>
-
       </div>
-      
-
-
     </>
   );
 };
